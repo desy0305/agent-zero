@@ -41,5 +41,8 @@ agent_history.gif
 # BotRat artifacts (local private testing)
 botrat/**
 
+# Local bootstrap credentials file
+deploy/bootstrap-personal-instances.local.ps1
+
 .agent/**
 .claude/**
