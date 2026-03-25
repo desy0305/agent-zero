@@ -1,8 +1,54 @@
+x-a0-instance: &a0-instance
+  image: agent-zero-swarm:local
+  restart: unless-stopped
+
 services:
-  agent-zero:
-    container_name: agent-zero
-    image: agent0ai/agent-zero:latest
-    volumes:
-      - ./agent-zero:/a0
+  sofiya:
+    <<: *a0-instance
+    build:
+      context: ../..
+      dockerfile: DockerfileLocal
+      args:
+        BRANCH: local
+        CACHE_DATE: ${CACHE_DATE:-none}
+    container_name: agent-zero-sofiya
     ports:
       - "50080:80"
+    volumes:
+      - ../../../instances/sofiya/usr:/a0/usr
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+  valentina:
+    <<: *a0-instance
+    container_name: agent-zero-valentina
+    ports:
+      - "50081:80"
+    volumes:
+      - ../../../instances/valentina/usr:/a0/usr
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+  lazar:
+    <<: *a0-instance
+    container_name: agent-zero-lazar
+    ports:
+      - "50082:80"
+    volumes:
+      - ../../../instances/lazar/usr:/a0/usr
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+  vanya:
+    <<: *a0-instance
+    container_name: agent-zero-vanya
+    ports:
+      - "50083:80"
+    volumes:
+      - ../../../instances/vanya/usr:/a0/usr
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock

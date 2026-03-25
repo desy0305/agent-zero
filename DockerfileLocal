@@ -6,6 +6,10 @@ FROM agent0ai/agent-zero-base:latest
 ARG BRANCH=local
 ENV BRANCH=$BRANCH
 
+# Ensure Docker CLI is installed for in-container Docker socket access
+USER root
+RUN apt-get update && apt-get install -y docker.io && rm -rf /var/lib/apt/lists/*
+
 # Copy filesystem files to root
 COPY ./docker/run/fs/ /
 # Copy current development files to git, they will only be used in "local" branch
