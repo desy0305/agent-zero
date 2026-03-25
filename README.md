@@ -15,7 +15,8 @@
 [Installation](./docs/setup/installation.md) •
 [How to update](./docs/setup/installation.md#how-to-update-agent-zero) <br>
 [Development Setup](./docs/setup/dev-setup.md) •
-[Usage](./docs/guides/usage.md)
+[Usage](./docs/guides/usage.md) •
+[Swarm + Docker MCP](./docs/guides/agent-zero-swarm.md)
 
 Or see DeepWiki generated documentation:
 
