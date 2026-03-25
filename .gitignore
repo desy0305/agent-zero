@@ -38,5 +38,8 @@ usr/**
 # for browser-use
 agent_history.gif
 
+# BotRat artifacts (local private testing)
+botrat/**
+
 .agent/**
 .claude/**

@@ -1,0 +1,24 @@
+x-a0-instance: &a0-instance
+  image: agent-zero-swarm:local
+  restart: unless-stopped
+
+services:
+  sofiya:
+    <<: *a0-instance
+    build:
+      context: ../..
+      dockerfile: DockerfileLocal
+      args:
+        BRANCH: local
+        CACHE_DATE: ${CACHE_DATE:-none}
+    container_name: agent-zero-sofiya
+    ports:
+      - "50080:80"
+    volumes:
+      - ../../../instances/sofiya/usr:/a0/usr
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+  # Copy and adjust this block for additional instances:
+  # valentina, lazar, vanya, etc.

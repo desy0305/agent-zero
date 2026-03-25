@@ -128,6 +128,9 @@ docker run -p 50001:80 agent0ai/agent-zero
 ![Settings](docs/res/settings-page-ui1.png)
 
 - Customizable settings allow users to tailor the agent's behavior and responses to their needs.
+- Agent Zero now supports built-in Docker MCP compatibility: the container image includes `docker.io` and a `/var/run/docker.sock` mount is recommended for agent-side container orchestration.
+- A reference new file `docker/run/docker-compose.example.yml` is included for local multi-instance setup with socket mapping.
+
 - The Web UI output is very clean, fluid, colorful, readable, and interactive; nothing is hidden.
 - You can load or save chats directly within the Web UI.
 - The same output you see in the terminal is automatically saved to an HTML file in **logs/** folder for every session.
