@@ -1,6 +1,6 @@
 from agent import Agent, UserMessage
 from python.helpers.tool import Tool, Response
-from initialize import initialize_agent
+from python.helpers.agent_config import clone_agent_config
 from python.extensions.hist_add_tool_result import _90_save_tool_call_file as save_tool_call_file
 
 
@@ -12,10 +12,11 @@ class Delegation(Tool):
             self.agent.get_data(Agent.DATA_NAME_SUBORDINATE) is None
             or str(reset).lower().strip() == "true"
         ):
-            # initialize default config
-            config = initialize_agent()
+            # Clone the parent config so subordinate agents inherit the full
+            # runtime state without sharing mutable references.
+            config = clone_agent_config(self.agent.config)
 
-            # set subordinate prompt profile if provided, if not, keep original
+            # Set subordinate prompt profile if provided; otherwise keep parent.
             agent_profile = kwargs.get("profile", kwargs.get("agent_profile", ""))
             if agent_profile:
                 config.profile = agent_profile

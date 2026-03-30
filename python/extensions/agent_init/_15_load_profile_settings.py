@@ -1,4 +1,5 @@
 from initialize import initialize_agent
+from python.helpers.agent_config import merge_agent_config
 from python.helpers import dirty_json, files, subagents, projects
 from python.helpers.extension import Extension
 
@@ -34,17 +35,13 @@ class LoadProfileSettings(Extension):
 
         if settings_override:
             current_config = self.agent.config
-            new_config = initialize_agent(override_settings=settings_override)
-
-            for override_key, config_attr in (
-                ("agent_profile", "profile"),
-                ("agent_memory_subdir", "memory_subdir"),
-                ("mcp_servers", "mcp_servers"),
-                ("browser_http_headers", "browser_http_headers"),
-            ):
-                if override_key not in settings_override:
-                    setattr(new_config, config_attr, getattr(current_config, config_attr))
-            self.agent.config = new_config
+            baseline_config = initialize_agent()
+            override_config = initialize_agent(override_settings=settings_override)
+            self.agent.config = merge_agent_config(
+                current_config,
+                baseline_config,
+                override_config,
+            )
             # self.agent.context.log.log(
             #     type="info",
             #     content=(
@@ -52,4 +49,3 @@ class LoadProfileSettings(Extension):
             #         f"{self.agent.number} with profile '{self.agent.config.profile}'."
             #     ),
             # )
-
